@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const httpStatus = require('http-status');
 
 
-async function createUser(email,password,fullname){
+async function createUser(email,password,fullname,type){
     const verifyUser = await models.users.findOne(
         {
             where:{
@@ -21,11 +21,26 @@ async function createUser(email,password,fullname){
         }
     }
 
-    await models.users.create({
+    const users = await models.users.create({
         email,
         password:await hashingPassword(password),
         name:fullname
-    })
+    },{
+        returning:true
+    });
+    if(users){
+        const role = await models.user_roles.findOne({
+            where:{
+                id:type
+            },
+            attributes:['id',"name"]
+        });
+
+        await models.user_user_roles.create({
+            user_id:users.dataValues.id,
+            user_role_id:role.dataValues.id
+        })
+    }
 
     return{
         message:"User Created",

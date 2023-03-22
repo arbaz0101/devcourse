@@ -46,8 +46,27 @@ module.exports = function (sequelize) {
       underscoredAll: true,
       underscored: true,
       timestamps: true,
+      indexes:[
+        {
+          name:"user_combine_field_index",
+          fields:["name","email","password","is_active"]
+        },
+        {
+          name:"user_email_unique_index",
+          fields:["email"],
+          unique:true
+        }
+      ]
     }
   );
-
+    Users.associate = function(model){
+      Users.hasMany(model.user_user_roles,{
+        foreignKey:{
+          name:"user_id",
+          allowNull:false
+        },
+        as:"users"
+      })
+    }
   return Users;
 };

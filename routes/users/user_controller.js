@@ -6,8 +6,8 @@ const user_helper = require('./user_helper');
 async function signUp(req){
 
     try{
-        const {email,password,fullname} = req.body;
-        const results = await user_helper.createUser(email,password,fullname);
+        const {email,password,fullname,type} = req.body;
+        const results = await user_helper.createUser(email,password,fullname,type);
 
         if(results.message ===  "User already exists"){
             return{
@@ -25,9 +25,10 @@ async function signUp(req){
         
 
     }catch(error){
+        console.error(error)
         return{
             error:"Error",
-            message:error.message,
+            message:"Internal Server Error",
             status:httpStatus.INTERNAL_SERVER_ERROR
         }
     }
