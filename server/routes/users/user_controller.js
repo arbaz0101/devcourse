@@ -36,7 +36,23 @@ async function signUp(req){
 
 }
 
+async function login(req){
+    const {password, email} = req.body;
+    try{
+        const response = await user_helper.Login(password,email);
+        return response
+    }catch(error){
+        console.error(error)
+        return{
+            error:"Error",
+            message:"Internal Server Error",
+            status:httpStatus.INTERNAL_SERVER_ERROR
+        }
+    }
+}
+
 
 module.exports= {
-    signUp
+    signUp,
+    login
 }

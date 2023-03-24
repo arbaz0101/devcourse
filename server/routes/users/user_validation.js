@@ -6,6 +6,10 @@ module.exports = {
         check("password").isLength({min:6,max:15}).not().isEmpty(),
         check("email").isEmail().not().isEmpty()
     ],
+    login:[
+        check("email").isEmail().not().isEmpty(),
+        check("password").not().isEmpty()
+    ],
     validate:(req,res,next)=>{
         const Errors = validationResult(req);
         if (!Errors.isEmpty()) {

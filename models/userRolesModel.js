@@ -34,12 +34,12 @@ module.exports = function (sequelize) {
   );
 
   UserRoles.associate = function(model){
-    UserRoles.hasOne(model.user_user_roles,{
+    UserRoles.hasMany(model.user_user_roles,{
         foreignKey:{
             name:"user_role_id",
             allowNull:false
         },
-        as:"user_roles"
+        as:"user_user_roles"
     })
   }
 

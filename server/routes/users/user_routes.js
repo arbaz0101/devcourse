@@ -15,7 +15,12 @@ Router.post("/signup",validate.signUp,validate.validate,async (req,res)=>{
 
 });
 
-Router.post("/login");
+Router.post("/login",validate.login,validate.validate,async  (req,res)=>{
+    const response  = await userController.login(req);
+    if(response.status === httpStatus.OK)
+        return res.send({message:response.message,data:response.data}).status(response.status);
+    return res.status(response.status).send({error:response.error,message:response.message})
+});
 
 Router.post("/logout")
 

@@ -1,7 +1,7 @@
 const { DataTypes, literal } = require("sequelize");
 
 module.exports = function (sequelize) {
-  const UserRoles = sequelize.define(
+  const UserUserRoles = sequelize.define(
     "user_user_roles",
     {
       user_id:{
@@ -29,24 +29,24 @@ module.exports = function (sequelize) {
     }
   );
 
-  UserRoles.assocaite = function(model){
-    UserRoles.belongsTo(model.users,{
+  UserUserRoles.assocaite = function(model){
+    UserUserRoles.belongsTo(model.users,{
         foreignKey:{
             name:"user_id",
             allowNull:false
         },
-        as:"users"
+        as:"user_roles"
     });
-    UserRoles.belongsTo(model.user_roles,{
+    UserUserRoles.belongsTo(model.user_roles,{
         foreignKey:{
             name:"user_role_id",
             allowNull:false
         },
-        as:"user_roles"
+        as:"user_user_roles"
     })
   }
 
-  UserRoles.removeAttribute("id")
+  UserUserRoles.removeAttribute("id")
 
-  return UserRoles;
+  return UserUserRoles;
 };

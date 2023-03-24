@@ -12,7 +12,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:false}))
 
 
-app.use("/api/v1",require('./routes/api_routes'))
+app.use("/api/v1",require('./server/routes/api_routes'))
 
 
 module.exports = app;

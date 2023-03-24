@@ -1,3 +1,4 @@
+require('dotenv').config(0)
 const dialectDefault = "postgres";
 const dbCharsetDefault = "utf8";
 const dbMaxPoolDefault = 2;
